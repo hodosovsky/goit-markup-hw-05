@@ -243,6 +243,7 @@ img {
   letter-spacing: 0.06em;
   color: var(--button-text-color);
   background-color: var(--button-bcg);
+  transition: background-color 250ms var(--default-transition);
 }
 
 .hero .button:hover,
