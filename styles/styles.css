@@ -41,6 +41,8 @@
   --social-network-color: #afb1b8;
   /* колір іконок */
   --icons-color: #afb1b8;
+  /* default transition */
+  --default-transition: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 body {
@@ -122,9 +124,17 @@ img {
 
   padding-top: 32px;
   padding-bottom: 32px;
+
   font-weight: 500;
   letter-spacing: 0.02em;
   color: var(--title-color);
+
+  /* transition-property: color;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-delay: 1000ms; */
+
+  transition: color 250ms var(--default-transition);
 }
 .current {
   position: relative;
@@ -137,6 +147,8 @@ img {
   left: 0;
   width: 100%;
   height: 4px;
+  padding-right: 4px;
+  padding-left: 4px;
   background: #2196f3;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 2px;
@@ -164,6 +176,7 @@ img {
   font-weight: 500;
   letter-spacing: 0.02em;
   color: var(--main-text-color);
+  transition: color 250ms var(--default-transition);
 }
 
 .contact-icon {
@@ -239,6 +252,7 @@ img {
 
 .backdrop.is-hidden {
   opacity: 0;
+  visibility: hidden;
   pointer-events: none;
 }
 
@@ -250,18 +264,29 @@ img {
   height: 100%;
   z-index: 2;
   background: linear-gradient(rgba(47, 48, 58, 0.4), rgba(47, 48, 58, 0.4));
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 250ms var(--default-transition);
+}
+
+.backdrop.is-hidden .modal {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(1) perspective(300px) rotateY(180deg);
 }
 
 .modal {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
 
   min-width: 528px;
   min-height: 581px;
 
   background-color: var(--main-bcg-color);
+
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  transition: transform 700ms var(--default-transition);
 }
 
 .close-modal {
@@ -439,6 +464,8 @@ img {
   border-radius: 50%;
   fill: var(--icons-color);
   color: var(--icons-color);
+  transition: color 250ms var(--default-transition),
+    background-color 250ms var(--default-transition);
 }
 
 .social-network-icon {
@@ -448,9 +475,6 @@ img {
 .social-network-link:hover,
 .social-network-link:focus {
   color: var(--button-text-color);
-}
-.social-network-link:hover,
-.social-network-link:focus {
   background-color: var(--hover-color);
 }
 /* Наші клієнти */
@@ -480,6 +504,8 @@ img {
   padding: 16px 32px;
 
   color: var(--icons-color);
+
+  transition: color 250ms var(--default-transition), border-color 250ms var(--default-transition);
 }
 .clients-link:hover,
 .clients-link:focus {
@@ -515,6 +541,7 @@ img {
   font-style: normal;
   line-height: 1.7;
   color: var(--contacts-text-color);
+  transition: color 250ms var(--default-transition);
 }
 
 .foot-list .item + .item {
@@ -564,6 +591,9 @@ img {
   text-align: center;
   color: var(--title-color);
   background-color: var(--team-bcg);
+
+  transition: color 250ms var(--default-transition),
+    background-color 250ms var(--default-transition);
 }
 
 .btn-flex .item + .item {
@@ -572,7 +602,6 @@ img {
 .btn-flex .item {
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 1px 2px rgba(0, 0, 0, 0.08),
     0px 2px 2px rgba(0, 0, 0, 0.12);
-  border-radius: 4px;
 }
 
 .filter:hover,
@@ -592,11 +621,17 @@ img {
 }
 
 .portfolio .item {
-  position: relative;
-
   width: calc((100% - 60px) / 3);
   margin-right: 30px;
   margin-bottom: 30px;
+  transition: box-shadow 250ms var(--default-transition);
+  border-radius: 4px;
+}
+.portfolio-overlay {
+  position: relative;
+  overflow: hidden;
+  width: 370px;
+  height: 294px;
 }
 
 .portfolio .item:hover {
@@ -604,8 +639,9 @@ img {
     1px 4px 6px rgba(0, 0, 0, 0.16);
 }
 
-.portfolio .item:hover .porfolio-text {
-  display: block;
+.portfolio .link:hover .porfolio-text,
+.portfolio .link:focus .porfolio-text {
+  transform: translateY(0);
 }
 
 .portfolio .item:nth-child(3n) {
@@ -635,19 +671,20 @@ img {
 }
 .porfolio-text {
   position: absolute;
-  content: '';
   left: 0;
   top: 0;
   width: 100%;
-  height: 294px;
+  height: 100%;
   margin: 0;
   padding: 63px 24px;
   font-size: 18px;
   line-height: calc(28 / 18);
   letter-spacing: 0.03em;
+
+  transform: translateY(100%);
   color: var(--button-text-color);
-  background-color: var(--button-bcg);
-  display: none;
+  background-color: var(--hover-color);
+  transition: transform 250ms var(--default-transition);
 }
 
 .portfolio .about {
