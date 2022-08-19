@@ -272,7 +272,7 @@ img {
 
 .backdrop.is-hidden .modal {
   opacity: 0;
-  transform: translate(-50%, -50%) scale(1) perspective(300px) rotateY(180deg);
+  transform: translate(-50%, -50%) scale(0.6) rotateY(180deg);
 }
 
 .modal {
@@ -287,7 +287,7 @@ img {
 
   opacity: 1;
   transform: translate(-50%, -50%) scale(1);
-  transition: transform 700ms var(--default-transition);
+  transition: transform 500ms var(--default-transition);
 }
 
 .close-modal {
